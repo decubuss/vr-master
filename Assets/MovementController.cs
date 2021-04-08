@@ -47,7 +47,7 @@ public class MovementController : MonoBehaviour
         Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         PlayerBody.Rotate(Vector3.up * mouseX);
 
-        WASDMovement();
+        /*WASDMovement();
         if (Input.GetMouseButtonDown(0) && MovementRod.instance.isHitting && !isMoving)
         {
             //PlayerBody.position = MovementRod.instance.Hit.point;
@@ -71,7 +71,7 @@ public class MovementController : MonoBehaviour
                 isMoving = false;
                 CurrentKnot = DestKnot;
             }
-        }
+        }*/
 
 
     }
