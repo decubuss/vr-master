@@ -13,7 +13,7 @@ public class MovementController : MonoBehaviour
     public float xRotation;
 
     [SerializeField]
-    public Vignette Vignette;
+    public PostProcessVolume Vignette;
     //[SerializeField]
     //public CharacterController CC;
     //[SerializeField]
@@ -36,7 +36,7 @@ public class MovementController : MonoBehaviour
     private void Awake()
     {
         PlayerBody = transform;
-        Vignette.active = false;
+        Vignette.enabled = false;
     }
     void Start()
     {
@@ -47,15 +47,6 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //mouseX = Input.GetAxis("Mouse X") * sensetivity * Time.deltaTime;
-        //mouseY = Input.GetAxis("Mouse Y") * sensetivity * Time.deltaTime;
-
-        //xRotation -= mouseY;
-        //xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        //Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        //PlayerBody.Rotate(Vector3.up * mouseX);
-
         bool triggerValue;
         if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out triggerValue) &&
             triggerValue &&
@@ -68,7 +59,7 @@ public class MovementController : MonoBehaviour
             LerpStart = transform.position;
             LerpDest = MoveToKnot(DestKnot);
             isMoving = true;
-            Vignette.active = true;
+            Vignette.enabled = true;
         }
 
         if (fraction < 1 && isMoving == true)
@@ -81,8 +72,10 @@ public class MovementController : MonoBehaviour
             {
                 fraction = 0;
                 isMoving = false;
+                CurrentKnot.PlayerExited();
                 CurrentKnot = DestKnot;
-                Vignette.active = true;
+                CurrentKnot.PlayerEntered();
+                Vignette.enabled = true;
             }
         }
         //MovementClamp();

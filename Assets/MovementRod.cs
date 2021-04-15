@@ -8,6 +8,7 @@ public class MovementRod : MonoBehaviour
     public RaycastHit Hit;
     public bool isHitting;
     public static MovementRod instance;
+    private MovementKnot lastKnot;
 
     private void Awake()
     {
@@ -16,15 +17,27 @@ public class MovementRod : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(Ray, out Hit))
+        Ray = new Ray(transform.position,transform.up);
+        if (Physics.Raycast(Ray,out Hit))
         {
             Debug.Log("hitting it");
             isHitting = true;
+            var tmpKnot = Hit.transform.GetComponent<MovementKnot>();
+            if (tmpKnot != null)
+            {
+                lastKnot = tmpKnot;
+                lastKnot.isPointedAt = true;
+            }
+            else
+            {
+                lastKnot.isPointedAt = false;
+            }
         }
         else
+        {
             isHitting = false;
-
+            lastKnot.isPointedAt = false;
+        }
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,15 +13,28 @@ public class MovementKnot : MonoBehaviour
 
     private Outline Outline;
     public bool isPointedAt;
+    private Collider Collider;
     private void Awake()
     {
         InitialPosition = transform.position;
         Outline = transform.GetComponent<Outline>();
         Outline.OutlineWidth = 0;
+        Collider = GetComponent<Collider>();
     }
-    public void OutlineSwitch(bool value)
+
+    private void FixedUpdate()
     {
-        isPointedAt = value;
-        Outline.OutlineWidth = isPointedAt ? 5f : 0f;
+        Outline.OutlineWidth = isPointedAt ? 5 : 0;
     }
+
+    public void PlayerEntered()
+    {
+        Collider.enabled=false;
+    }
+
+    public void PlayerExited()
+    {
+        Collider.enabled = true;
+    }
+
 }
