@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
-using Valve.VR;
 
 public class WASDMovement : MonoBehaviour
 {
@@ -15,14 +14,17 @@ public class WASDMovement : MonoBehaviour
     private Vector2 inputAxis;
     private CharacterController character;
 
+    private InputDevice device;
+
     void Start()
     {
         character = GetComponent<CharacterController>();
         rig = GetComponent<XRRig>();
+        device = InputDevices.GetDeviceAtXRNode(inputSource);
+
     }
     private void Update()
     {
-        InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
         device.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxis);
     }
 
