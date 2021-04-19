@@ -68,6 +68,7 @@
     <Compile Include="Assets\MovementKnot.cs" />
     <Compile Include="Assets\MovementRod.cs" />
     <Compile Include="Assets\MyShaders\QuickOutline\Scripts\Outline.cs" />
+    <Compile Include="Assets\TeethGrip.cs" />
     <Compile Include="Assets\WASDMovement.cs" />
     <None Include="Assets\MyShaders\QuickOutline\Resources\Shaders\OutlineMask.shader" />
     <None Include="Assets\MyShaders\OutlineShader.shader" />
