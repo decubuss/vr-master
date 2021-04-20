@@ -17,10 +17,10 @@ public class MovementRod : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray = new Ray(transform.position,transform.up);
+        Ray = new Ray(transform.position,transform.forward*5f);
         if (Physics.Raycast(Ray,out Hit))
         {
-            Debug.Log("hitting it");
+            Debug.Log("hitting it " + Hit.collider.name);
             isHitting = true;
             var tmpKnot = Hit.transform.GetComponent<MovementKnot>();
             if (tmpKnot != null)
@@ -30,13 +30,15 @@ public class MovementRod : MonoBehaviour
             }
             else
             {
-                lastKnot.isPointedAt = false;
+                if(lastKnot)
+                    lastKnot.isPointedAt = false;
             }
         }
         else
         {
             isHitting = false;
-            lastKnot.isPointedAt = false;
+            if(lastKnot)
+                lastKnot.isPointedAt = false;
         }
     }
 

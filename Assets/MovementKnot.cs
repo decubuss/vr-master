@@ -11,6 +11,9 @@ public class MovementKnot : MonoBehaviour
     [SerializeField]
     public float zBounds = 1f;
 
+    public LayerMask defaultLayer;
+    public LayerMask ignoredLayer;
+
     private Outline Outline;
     public bool isPointedAt;
     private Collider Collider;
@@ -29,12 +32,14 @@ public class MovementKnot : MonoBehaviour
 
     public void PlayerEntered()
     {
-        Collider.enabled=false;
+        //Collider.enabled=false;
+        gameObject.layer = 2;
     }
 
     public void PlayerExited()
     {
-        Collider.enabled = true;
+        //Collider.enabled = true;
+        gameObject.layer = 0;
     }
 
 }

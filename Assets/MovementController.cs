@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using Valve.VR;
 using UnityEngine.Rendering.PostProcessing;
 
 public class MovementController : MonoBehaviour
@@ -32,6 +33,9 @@ public class MovementController : MonoBehaviour
     private InputDevice device;
     public XRNode inputSource;
 
+    public SteamVR_Input_Sources handType;
+    public SteamVR_Action_Boolean grabPinchAction;
+    
     private Outline lastOutline;
     private void Awake()
     {
@@ -48,8 +52,7 @@ public class MovementController : MonoBehaviour
     void Update()
     {
         bool triggerValue;
-        if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out triggerValue) &&
-            triggerValue &&
+        if (grabPinchAction.GetState(handType)&&
             MovementRod.instance.isHitting && 
             !isMoving)
         {
@@ -75,7 +78,7 @@ public class MovementController : MonoBehaviour
                 CurrentKnot.PlayerExited();
                 CurrentKnot = DestKnot;
                 CurrentKnot.PlayerEntered();
-                Vignette.enabled = true;
+                Vignette.enabled = false;
             }
         }
         //MovementClamp();
